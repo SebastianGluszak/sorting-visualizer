@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import shuffle from "lodash/shuffle";
 import "./styles/App.css";
 
@@ -7,6 +7,33 @@ const App = () => {
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
   const [data, setData] = useState([50, 60, 70, 40, 20, 30, 50, 20, 10, 30]);
+  const dataRef = useRef(data);
+  dataRef.current = data;
+
+  // Sorting algorithms
+  // -------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------
+  const bubbleSort = () => {
+    let updatedData = data.slice();
+    for (let i = 0; i < updatedData.length - 1; i++) {
+      for (let j = 0; j < updatedData.length - i - 1; j++) {
+        if (updatedData[j] > updatedData[j + 1]) {
+          swap(updatedData, j, j + 1);
+        }
+      }
+    }
+    setData(updatedData);
+  };
+
+  const swap = (arr, prev, curr) => {
+    const temp = arr[prev];
+    arr[prev] = arr[curr];
+    arr[curr] = temp;
+  };
+
+  // Helper functions
+  // -------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------
 
   const addData = (e) => {
     e.preventDefault();
@@ -46,7 +73,7 @@ const App = () => {
     setData(shuffledData);
   };
 
-  // Generation Value
+  // STATE: Generation Value
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
   const [generatationAmount, setGenerationAmount] = useState("");
@@ -55,7 +82,7 @@ const App = () => {
     setGenerationAmount(e.target.value);
   };
 
-  // Add Value
+  // STATE: Add Value
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
   const [addValue, setAddValue] = useState("");
@@ -72,7 +99,7 @@ const App = () => {
       <div className="header">
         <h1>Visualizing Sorter</h1>
         <ul className="sorting-list">
-          <li>Bubble Sort</li>
+          <li onClick={bubbleSort}>Bubble Sort</li>
           <li>Selection Sort</li>
           <li>Insertion Sort</li>
           <li>Quick Sort</li>
