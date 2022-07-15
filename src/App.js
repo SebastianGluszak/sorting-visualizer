@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import "./styles/App.css";
 
@@ -7,22 +7,37 @@ const App = () => {
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
   const [data, setData] = useState([50, 60, 70, 40, 20, 30, 50, 20, 10, 30]);
-  const dataRef = useRef(data);
-  dataRef.current = data;
+
+  const [dataSteps, setDataSteps] = useState([
+    [50, 60, 70, 40, 20, 30, 50, 20, 10, 30],
+  ]);
 
   // Sorting algorithms
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
+  const runSteps = async () => {
+    for (let step of dataSteps) {
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(setData(step));
+        }, 1000);
+      });
+    }
+  };
+
   const bubbleSort = () => {
     let updatedData = data.slice();
-    for (let i = 0; i < updatedData.length - 1; i++) {
-      for (let j = 0; j < updatedData.length - i - 1; j++) {
+    let updatedDataSteps = dataSteps.slice();
+    for (let i = 0; i < data.length - 1; i++) {
+      for (let j = 0; j < data.length - i - 1; j++) {
         if (updatedData[j] > updatedData[j + 1]) {
           swap(updatedData, j, j + 1);
+          const step = updatedData.slice();
+          updatedDataSteps.push(step);
         }
       }
     }
-    setData(updatedData);
+    setDataSteps(updatedDataSteps);
   };
 
   const swap = (arr, prev, curr) => {
@@ -148,6 +163,7 @@ const App = () => {
           <button>Add Value</button>
         </form>
         <button onClick={shuffleData}>Shuffle Data</button>
+        <button onClick={runSteps}>Run Steps</button>
       </div>
     </div>
   );
