@@ -1,0 +1,49 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    min-height: 10vh;
+    width: 100vw;
+    background-color: rgb(70, 97, 109);
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    align-items: center;
+}
+
+.sorting-list {
+    list-style: none;
+    display: flex;
+    column-gap: 30px;
+}
+
+.sorting-list > li {
+    cursor: pointer;
+}
+
+.data {
+    height: 500px;
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.data-point {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(10, 10, 10);
+}
+
+.data-point:hover {
+    background-color: rgb(28, 28, 28);
+}
