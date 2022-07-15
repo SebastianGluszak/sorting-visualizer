@@ -20,14 +20,14 @@ const App = () => {
       await new Promise((resolve) => {
         setTimeout(() => {
           resolve(setData(step));
-        }, 1000);
+        }, 100);
       });
     }
   };
 
   const bubbleSort = () => {
     let updatedData = data.slice();
-    let updatedDataSteps = dataSteps.slice();
+    let updatedDataSteps = [];
     for (let i = 0; i < data.length - 1; i++) {
       for (let j = 0; j < data.length - i - 1; j++) {
         if (updatedData[j] > updatedData[j + 1]) {
@@ -106,11 +106,54 @@ const App = () => {
     setAddValue(e.target.value);
   };
 
+  // STATE: Min
+  // -------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------
+  const [min, setMin] = useState(0);
+
+  useEffect(() => {
+    let min = 101;
+    for (let val of data) {
+      if (min > val) {
+        min = val;
+      }
+    }
+    setMin(min);
+  }, [data]);
+
+  // STATE: Max
+  // -------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------
+  const [max, setMax] = useState(0);
+
+  useEffect(() => {
+    let max = -1;
+    for (let val of data) {
+      if (max < val) {
+        max = val;
+      }
+    }
+    setMax(max);
+  }, [data]);
+
+  // STATE: Avg
+  // -------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------
+  const [avg, setAvg] = useState(0);
+
+  useEffect(() => {
+    let avg = 0;
+    for (let val of data) {
+      avg += val;
+    }
+    setAvg(avg / data.length);
+  }, [data]);
+
   // RETURN
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
   return (
-    <div>
+    <div className="app">
       <div className="header">
         <h1>Visualizing Sorter</h1>
         <ul className="sorting-list">
@@ -121,49 +164,57 @@ const App = () => {
           <li>Merge Sort</li>
         </ul>
       </div>
-      <div className="data">
-        {data.map((value, index) => {
-          return (
-            <div
-              className="data-point"
-              style={{
-                height: `${value}%`,
-                width: `${100 / data.length}%`,
-              }}
-              onClick={removeData}
-              data-val={value}
-              data-idx={index}
-            ></div>
-          );
-        })}
-      </div>
-      <div className="controls">
-        <form onSubmit={generateData}>
-          <input
-            value={generatationAmount}
-            type="number"
-            onChange={changeGenerationAmount}
-            required
-            placeholder="1-100"
-            min="1"
-            max="100"
-          ></input>
-          <button>Randomize Data</button>
-        </form>
-        <form onSubmit={addData}>
-          <input
-            value={addValue}
-            type="number"
-            onChange={changeAddValue}
-            required
-            placeholder="1-100"
-            min="1"
-            max="100"
-          ></input>
-          <button>Add Value</button>
-        </form>
-        <button onClick={shuffleData}>Shuffle Data</button>
-        <button onClick={runSteps}>Run Steps</button>
+      <div className="content">
+        <div className="sidebar">
+          <div>Data Length: {data.length}</div>
+          <div>Data Min: {min}</div>
+          <div>Data Max: {max}</div>
+          <div>Data Avg: {avg}</div>
+        </div>
+        <div className="data">
+          {data.map((value, index) => {
+            return (
+              <div
+                className="data-point"
+                style={{
+                  height: `${value}%`,
+                  width: `${100 / data.length}%`,
+                }}
+                onClick={removeData}
+                data-val={value}
+                data-idx={index}
+              ></div>
+            );
+          })}
+        </div>
+        <div className="controls">
+          <form onSubmit={generateData}>
+            <input
+              value={generatationAmount}
+              type="number"
+              onChange={changeGenerationAmount}
+              required
+              placeholder="1-100"
+              min="1"
+              max="100"
+            ></input>
+            <button>Randomize Data</button>
+          </form>
+          <form onSubmit={addData}>
+            <input
+              value={addValue}
+              type="number"
+              onChange={changeAddValue}
+              required
+              placeholder="1-100"
+              min="1"
+              max="100"
+            ></input>
+            <button>Add Value</button>
+          </form>
+          <button onClick={shuffleData}>Shuffle Data</button>
+          <button onClick={runSteps}>Run Algorithm</button>
+        </div>
       </div>
     </div>
   );
