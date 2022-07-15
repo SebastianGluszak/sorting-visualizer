@@ -30,13 +30,22 @@ const App = () => {
     return true;
   };
 
-  const generateData = (amount) => {
-    let updatedData = [];
-    for (let i = 0; i < 10; i++) {
-      const val = Math.floor(Math.random() * 100 + 1);
-      updatedData.push(val);
+  const generateData = (e) => {
+    e.preventDefault();
+    let generatedData = [];
+    for (let i = 0; i < generatationAmount; i++) {
+      generatedData.push(Math.floor(Math.random() * 100 + 1));
     }
-    setData(updatedData);
+    setData(generatedData);
+  };
+
+  // Generation Value
+  // -------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------
+  const [generatationAmount, setGenerationAmount] = useState(10);
+
+  const changeGenerationAmount = (e) => {
+    setGenerationAmount(e.target.value);
   };
 
   // RETURN
@@ -71,9 +80,14 @@ const App = () => {
         })}
       </div>
       <div className="controls">
-        <form>
-          <input type="number" required></input>
-          <button onClick={generateData}>Gen Data</button>
+        <form onSubmit={generateData}>
+          <input
+            value={generatationAmount}
+            type="number"
+            onChange={changeGenerationAmount}
+            required
+          ></input>
+          <button>Gen Data</button>
         </form>
       </div>
     </div>
