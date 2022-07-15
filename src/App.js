@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
+import shuffle from "lodash/shuffle";
 import "./styles/App.css";
 
 const App = () => {
   // STATE: Array that needs to be sorted
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([50, 60, 70, 40, 20, 30, 50, 20, 10, 30]);
 
-  const addData = (value) => {
+  const addData = (e) => {
+    e.preventDefault();
     let updatedData = data.slice();
-    updatedData.push(value);
+    updatedData.push(addValue);
     setData(updatedData);
   };
 
@@ -39,13 +41,27 @@ const App = () => {
     setData(generatedData);
   };
 
+  const shuffleData = () => {
+    let shuffledData = shuffle(data.slice());
+    setData(shuffledData);
+  };
+
   // Generation Value
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
-  const [generatationAmount, setGenerationAmount] = useState(10);
+  const [generatationAmount, setGenerationAmount] = useState("");
 
   const changeGenerationAmount = (e) => {
     setGenerationAmount(e.target.value);
+  };
+
+  // Add Value
+  // -------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------
+  const [addValue, setAddValue] = useState("");
+
+  const changeAddValue = (e) => {
+    setAddValue(e.target.value);
   };
 
   // RETURN
@@ -86,9 +102,25 @@ const App = () => {
             type="number"
             onChange={changeGenerationAmount}
             required
+            placeholder="1-100"
+            min="1"
+            max="100"
           ></input>
-          <button>Gen Data</button>
+          <button>Randomize Data</button>
         </form>
+        <form onSubmit={addData}>
+          <input
+            value={addValue}
+            type="number"
+            onChange={changeAddValue}
+            required
+            placeholder="1-100"
+            min="1"
+            max="100"
+          ></input>
+          <button>Add Value</button>
+        </form>
+        <button onClick={shuffleData}>Shuffle Data</button>
       </div>
     </div>
   );
