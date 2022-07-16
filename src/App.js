@@ -65,6 +65,26 @@ const App = () => {
     setDataSteps(updatedDataSteps);
   };
 
+  const insertionSort = () => {
+    setAlgoSelection("Insertion Sort");
+    let updatedData = data.slice();
+    let updatedDataSteps = [];
+    for (let i = 0; i < data.length; i++) {
+      let key = updatedData[i];
+      let j = i - 1;
+      while (j >= 0 && updatedData[j] > key) {
+        updatedData[j + 1] = updatedData[j];
+        j--;
+        const step = updatedData.slice();
+        updatedDataSteps.push(step);
+      }
+      updatedData[j + 1] = key;
+      const step = updatedData.slice();
+      updatedDataSteps.push(step);
+    }
+    setDataSteps(updatedDataSteps);
+  };
+
   // Helper functions
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
@@ -177,7 +197,7 @@ const App = () => {
         <ul className="sorting-list">
           <li onClick={bubbleSort}>Bubble Sort</li>
           <li onClick={selectionSort}>Selection Sort</li>
-          <li>Insertion Sort</li>
+          <li onClick={insertionSort}>Insertion Sort</li>
           <li>Quick Sort</li>
           <li>Merge Sort</li>
         </ul>
