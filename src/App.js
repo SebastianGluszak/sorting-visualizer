@@ -26,6 +26,7 @@ const App = () => {
   };
 
   const bubbleSort = () => {
+    setAlgoSelection("Bubble Sort");
     let updatedData = data.slice();
     let updatedDataSteps = [];
     for (let i = 0; i < data.length - 1; i++) {
@@ -52,6 +53,9 @@ const App = () => {
 
   const addData = (e) => {
     e.preventDefault();
+    if (data.length === 100) {
+      return;
+    }
     let updatedData = data.slice();
     updatedData.push(addValue);
     setData(updatedData);
@@ -63,18 +67,9 @@ const App = () => {
     setData(updatedData);
   };
 
-  const isSorted = () => {
-    let prev = data[0];
-    for (const val of data) {
-      if (val < prev) {
-        return false;
-      }
-      prev = val;
-    }
-    return true;
-  };
-
   const generateData = (e) => {
+    setDataSteps([]);
+    setAlgoSelection("");
     e.preventDefault();
     let generatedData = [];
     for (let i = 0; i < generatationAmount; i++) {
@@ -146,8 +141,13 @@ const App = () => {
     for (let val of data) {
       avg += val;
     }
-    setAvg(avg / data.length);
+    setAvg(Math.round(avg / data.length));
   }, [data]);
+
+  // STATE: Algorithm selections
+  // -------------------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------------------
+  const [algoSelection, setAlgoSelection] = useState("");
 
   // RETURN
   // -------------------------------------------------------------------------------------------------------------
@@ -164,57 +164,56 @@ const App = () => {
           <li>Merge Sort</li>
         </ul>
       </div>
-      <div className="content">
-        <div className="sidebar">
-          <div>Data Length: {data.length}</div>
-          <div>Data Min: {min}</div>
-          <div>Data Max: {max}</div>
-          <div>Data Avg: {avg}</div>
-        </div>
-        <div className="data">
-          {data.map((value, index) => {
-            return (
-              <div
-                className="data-point"
-                style={{
-                  height: `${value}%`,
-                  width: `${100 / data.length}%`,
-                }}
-                onClick={removeData}
-                data-val={value}
-                data-idx={index}
-              ></div>
-            );
-          })}
-        </div>
-        <div className="controls">
-          <form onSubmit={generateData}>
-            <input
-              value={generatationAmount}
-              type="number"
-              onChange={changeGenerationAmount}
-              required
-              placeholder="1-100"
-              min="1"
-              max="100"
-            ></input>
-            <button>Randomize Data</button>
-          </form>
-          <form onSubmit={addData}>
-            <input
-              value={addValue}
-              type="number"
-              onChange={changeAddValue}
-              required
-              placeholder="1-100"
-              min="1"
-              max="100"
-            ></input>
-            <button>Add Value</button>
-          </form>
-          <button onClick={shuffleData}>Shuffle Data</button>
-          <button onClick={runSteps}>Run Algorithm</button>
-        </div>
+      <div className="sidebar">
+        <h4>Algorithm: {algoSelection}</h4>
+        <h4>Data Length: {data.length}</h4>
+        <h4>Data Min: {min}</h4>
+        <h4>Data Max: {max}</h4>
+        <h4>Data Avg: {avg}</h4>
+      </div>
+      <div className="data">
+        {data.map((value, index) => {
+          return (
+            <div
+              className="data-point"
+              style={{
+                height: `${value}%`,
+                width: `${100 / data.length}%`,
+              }}
+              onClick={removeData}
+              data-val={value}
+              data-idx={index}
+            ></div>
+          );
+        })}
+      </div>
+      <div className="controls">
+        <form onSubmit={generateData}>
+          <input
+            value={generatationAmount}
+            type="number"
+            onChange={changeGenerationAmount}
+            required
+            placeholder="1-100"
+            min="1"
+            max="100"
+          ></input>
+          <button>Randomize Data</button>
+        </form>
+        <form onSubmit={addData}>
+          <input
+            value={addValue}
+            type="number"
+            onChange={changeAddValue}
+            required
+            placeholder="1-100"
+            min="1"
+            max="100"
+          ></input>
+          <button>Add Value</button>
+        </form>
+        <button onClick={shuffleData}>Shuffle Data</button>
+        <button onClick={runSteps}>Run Algorithm</button>
       </div>
     </div>
   );
