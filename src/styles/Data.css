@@ -1,0 +1,16 @@
+.data {
+    display: flex;
+    align-items: flex-end;
+    padding: 100px;
+}
+
+.data-point {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(10, 10, 10);
+}
+
+.data-point:hover {
+    background-color: rgb(28, 28, 28);
+}

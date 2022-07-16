@@ -1,0 +1,30 @@
+.controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+button {
+    background-color: rgb(70, 97, 109);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: 2px solid rgb(70, 97, 109);
+}
+
+button:hover {
+    background-color: rgb(59, 82, 92);
+}
+
+button:active {
+    background-color: rgb(60, 84, 94);
+    transform: translateY(1px);
+}
+
+input {
+    border: 2px solid rgb(70, 97, 109);
+    border-radius: 5px;
+    padding: 5px 10px;
+}

@@ -1,0 +1,8 @@
+.sidebar {
+    background-color: rgb(133, 161, 170);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
