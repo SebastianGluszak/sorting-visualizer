@@ -47,6 +47,24 @@ const App = () => {
     arr[curr] = temp;
   };
 
+  const selectionSort = () => {
+    setAlgoSelection("Selection Sort");
+    let updatedData = data.slice();
+    let updatedDataSteps = [];
+    for (let i = 0; i < data.length; i++) {
+      let min = i;
+      for (let j = i; j < data.length; j++) {
+        if (updatedData[j] < updatedData[min]) {
+          min = j;
+        }
+      }
+      swap(updatedData, i, min);
+      const step = updatedData.slice();
+      updatedDataSteps.push(step);
+    }
+    setDataSteps(updatedDataSteps);
+  };
+
   // Helper functions
   // -------------------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------------------
@@ -158,7 +176,7 @@ const App = () => {
         <h1>Visualizing Sorter</h1>
         <ul className="sorting-list">
           <li onClick={bubbleSort}>Bubble Sort</li>
-          <li>Selection Sort</li>
+          <li onClick={selectionSort}>Selection Sort</li>
           <li>Insertion Sort</li>
           <li>Quick Sort</li>
           <li>Merge Sort</li>
