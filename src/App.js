@@ -85,8 +85,10 @@ const App = () => {
   const quickSort = () => {
     setAlgoSelection("Quick Sort");
     let updatedData = data.slice();
+    let updatedDataSteps = [];
     doQuickSort(updatedData, 0, updatedData.length - 1);
-    setData(updatedData);
+    updatedDataSteps.push(updatedData);
+    setDataSteps(updatedDataSteps);
   };
 
   const doQuickSort = (arr, low, high) => {
@@ -115,8 +117,10 @@ const App = () => {
   const mergeSort = () => {
     setAlgoSelection("Merge Sort");
     let updatedData = data.slice();
+    let updatedDataSteps = [];
     doMergeSort(updatedData, 0, updatedData.length - 1);
-    setData(updatedData);
+    updatedDataSteps.push(updatedData);
+    setDataSteps(updatedDataSteps);
   };
 
   const doMergeSort = (arr, left, right) => {
