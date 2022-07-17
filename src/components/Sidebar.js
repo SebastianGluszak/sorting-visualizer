@@ -33,7 +33,8 @@ const Sidebar = (props) => {
     for (let val of props.data) {
       avg += val;
     }
-    setAvg(Math.round(avg / props.data.length));
+    avg = Math.round(avg / props.data.length);
+    setAvg(avg);
   }, [props.data]);
 
   return (

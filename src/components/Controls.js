@@ -31,7 +31,7 @@ const Controls = (props) => {
       return;
     }
     let updatedData = props.data.slice();
-    updatedData.push(addValue);
+    updatedData.push(parseInt(addValue));
     props.setData(updatedData);
   };
 
