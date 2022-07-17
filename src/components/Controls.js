@@ -41,11 +41,15 @@ const Controls = (props) => {
   };
 
   const runSteps = async () => {
+    if (props.algoSelection === "") {
+      alert("Select an algorithm");
+      return;
+    }
     for (let step of props.dataSteps) {
       await new Promise((resolve) => {
         setTimeout(() => {
           resolve(props.setData(step));
-        }, 100);
+        }, 10);
       });
     }
     props.setDataSteps([]);
