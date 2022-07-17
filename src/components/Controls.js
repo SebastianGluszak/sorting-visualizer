@@ -11,7 +11,6 @@ const Controls = (props) => {
 
   const generateData = (e) => {
     props.setDataSteps([]);
-    props.setAlgoSelection("");
     e.preventDefault();
     let generatedData = [];
     for (let i = 0; i < generatationAmount; i++) {

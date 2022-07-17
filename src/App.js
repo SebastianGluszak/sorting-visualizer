@@ -14,6 +14,20 @@ const App = () => {
     [50, 60, 70, 40, 20, 30, 50, 20, 10, 30],
   ]);
 
+  useEffect(() => {
+    if (algoSelection === "Bubble Sort") {
+      bubbleSort();
+    } else if (algoSelection === "Selection Sort") {
+      selectionSort();
+    } else if (algoSelection === "Insertion Sort") {
+      insertionSort();
+    } else if (algoSelection === "Quick Sort") {
+      quickSort();
+    } else if (algoSelection === "Merge Sort") {
+      mergeSort();
+    }
+  }, [data]);
+
   const bubbleSort = () => {
     setAlgoSelection("Bubble Sort");
     let updatedData = data.slice();
@@ -101,7 +115,6 @@ const App = () => {
         dataSteps={dataSteps}
         setData={setData}
         setDataSteps={setDataSteps}
-        setAlgoSelection={setAlgoSelection}
       />
     </div>
   );
