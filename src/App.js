@@ -14,7 +14,12 @@ const App = () => {
     [50, 60, 70, 40, 20, 30, 50, 20, 10, 30],
   ]);
 
+  const [runningSteps, setRunningSteps] = useState(false);
+
   useEffect(() => {
+    if (runningSteps) {
+      return;
+    }
     if (algoSelection === "Bubble Sort") {
       bubbleSort();
     } else if (algoSelection === "Selection Sort") {
@@ -36,9 +41,9 @@ const App = () => {
       for (let j = 0; j < data.length - i - 1; j++) {
         if (updatedData[j] > updatedData[j + 1]) {
           swap(updatedData, j, j + 1);
+          const step = updatedData.slice();
+          updatedDataSteps.push(step);
         }
-        const step = updatedData.slice();
-        updatedDataSteps.push(step);
       }
     }
     setDataSteps(updatedDataSteps);
@@ -200,6 +205,8 @@ const App = () => {
         dataSteps={dataSteps}
         setData={setData}
         setDataSteps={setDataSteps}
+        runningSteps={runningSteps}
+        setRunningSteps={setRunningSteps}
         algoSelection={algoSelection}
       />
     </div>

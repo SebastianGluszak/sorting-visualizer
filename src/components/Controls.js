@@ -10,8 +10,11 @@ const Controls = (props) => {
   };
 
   const generateData = (e) => {
-    props.setDataSteps([]);
     e.preventDefault();
+    if (props.runningSteps) {
+      return;
+    }
+    props.setDataSteps([]);
     let generatedData = [];
     for (let i = 0; i < generatationAmount; i++) {
       generatedData.push(Math.floor(Math.random() * 100 + 1));
@@ -27,6 +30,9 @@ const Controls = (props) => {
 
   const addData = (e) => {
     e.preventDefault();
+    if (props.runningSteps) {
+      return;
+    }
     if (props.data.length === 100) {
       return;
     }
@@ -36,6 +42,9 @@ const Controls = (props) => {
   };
 
   const shuffleData = () => {
+    if (props.runningSteps) {
+      return;
+    }
     let shuffledData = shuffle(props.data.slice());
     props.setData(shuffledData);
   };
@@ -45,6 +54,7 @@ const Controls = (props) => {
       alert("Select an algorithm");
       return;
     }
+    props.setRunningSteps(true);
     for (let step of props.dataSteps) {
       await new Promise((resolve) => {
         setTimeout(() => {
@@ -53,6 +63,7 @@ const Controls = (props) => {
       });
     }
     props.setDataSteps([]);
+    props.setRunningSteps(false);
   };
 
   return (
